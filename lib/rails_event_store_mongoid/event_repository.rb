@@ -25,10 +25,6 @@ module RailsEventStoreMongoid
       build_event_entity(adapter.where(stream: stream_name).desc(:id).first)
     end
 
-    # def get_all_events
-    #   adapter.all.asc(:id).map(&method(:build_event_entity))
-    # end
-
     def read_events_forward(stream_name, start_event_id, count)
       stream = adapter.where(stream: stream_name)
       unless start_event_id.equal?(:head)
