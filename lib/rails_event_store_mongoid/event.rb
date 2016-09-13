@@ -11,9 +11,7 @@ module RailsEventStoreMongoid
     field :metadata, type: Hash, default: {}
     field :data, type: Hash, default: {}
 
-    index(stream: 1)
     index(event_id: 1)
-    index(event_type: 1)
-    index(:created_at: 1)
+    index(stream: 1, _id: 1)
   end
 end
