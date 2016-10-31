@@ -1,3 +1,5 @@
+require 'mongoid'
+
 module RailsEventStoreMongoid
   class Event
     include ::Mongoid::Document
