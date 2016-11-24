@@ -1,3 +1,3 @@
 module RailsEventStoreMongoid
-  VERSION = "0.15.0.dev"
+  VERSION = "0.14.3"
 end
