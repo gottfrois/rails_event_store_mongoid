@@ -7,8 +7,13 @@ module RailsEventStoreMongoid
     attr_reader :adapter
 
     def create(event, stream_name)
-      data = event.to_h.merge!(stream: stream_name, event_type: event.class)
-      adapter.create(data)
+      adapter.create(
+        stream:     stream_name,
+        event_id:   event.event_id,
+        event_type: event.class,
+        data:       event.data,
+        meta:       event.metadata,
+      )
       event
     end
 
@@ -85,7 +90,7 @@ module RailsEventStoreMongoid
       return nil unless record
       record.event_type.constantize.new(
         event_id: record.event_id,
-        metadata: record.metadata,
+        metadata: record.meta,
         data: record.data,
       )
     end
