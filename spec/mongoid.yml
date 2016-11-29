@@ -1,0 +1,13 @@
+test:
+  clients:
+    default:
+      database: rails_event_store_mongoid_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        write:
+          w: 1
+  options:
+    use_utc: true
