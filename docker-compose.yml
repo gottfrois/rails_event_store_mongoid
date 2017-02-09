@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  mongo:
+    container_name: rails_event_store_mongo
+    image: mongo:3.2
+    command: ["--storageEngine", "wiredTiger"]
+    ports:
+      - "27027:27017"
+    logging:
+      driver: json-file
+      options:
+        max-size: '10k'
+        max-file: '3'
+

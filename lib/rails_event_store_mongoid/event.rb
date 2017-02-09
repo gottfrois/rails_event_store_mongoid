@@ -13,7 +13,9 @@ module RailsEventStoreMongoid
     field :meta, type: Hash, default: {}
     field :data, type: Hash, default: {}
 
+    field :ts, type: BSON::Timestamp, default: -> { BSON::Timestamp.new(0, 0) }
+
     index(event_id: 1)
-    index(stream: 1, _id: 1)
+    index(stream: 1, ts: 1)
   end
 end
