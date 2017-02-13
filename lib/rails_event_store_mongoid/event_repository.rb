@@ -27,17 +27,17 @@ module RailsEventStoreMongoid
     end
 
     def last_stream_event(stream_name)
-      build_event_entity(adapter.where(stream: stream_name).desc(:id).first)
+      build_event_entity(adapter.where(stream: stream_name).desc(:ts).first)
     end
 
     def read_events_forward(stream_name, start_event_id, count)
       stream = adapter.where(stream: stream_name)
       unless start_event_id.equal?(:head)
         starting_event = adapter.find_by(event_id: start_event_id)
-        stream = stream.where(:id.gt => starting_event.id)
+        stream = stream.where(:ts.gt => starting_event.ts)
       end
 
-      stream.asc(:id).limit(count)
+      stream.asc(:ts).limit(count)
         .map(&method(:build_event_entity))
     end
 
@@ -45,20 +45,20 @@ module RailsEventStoreMongoid
       stream = adapter.where(stream: stream_name)
       unless start_event_id.equal?(:head)
         starting_event = adapter.find_by(event_id: start_event_id)
-        stream = stream.where(:id.lt => starting_event.id)
+        stream = stream.where(:ts.lt => starting_event.ts)
       end
 
-      stream.desc(:id).limit(count)
+      stream.desc(:ts).limit(count)
         .map(&method(:build_event_entity))
     end
 
     def read_stream_events_forward(stream_name)
-      adapter.where(stream: stream_name).asc(:id)
+      adapter.where(stream: stream_name).asc(:ts)
         .map(&method(:build_event_entity))
     end
 
     def read_stream_events_backward(stream_name)
-      adapter.where(stream: stream_name).desc(:id)
+      adapter.where(stream: stream_name).desc(:ts)
         .map(&method(:build_event_entity))
     end
 
@@ -66,10 +66,10 @@ module RailsEventStoreMongoid
       stream = adapter
       unless start_event_id.equal?(:head)
         starting_event = adapter.find_by(event_id: start_event_id)
-        stream = stream.where(:id.gt => starting_event.id)
+        stream = stream.where(:ts.gt => starting_event.ts)
       end
 
-      stream.asc(:id).limit(count)
+      stream.asc(:ts).limit(count)
         .map(&method(:build_event_entity))
     end
 
@@ -77,10 +77,10 @@ module RailsEventStoreMongoid
       stream = adapter
       unless start_event_id.equal?(:head)
         starting_event = adapter.find_by(event_id: start_event_id)
-        stream = stream.where(:id.lt => starting_event.id)
+        stream = stream.where(:ts.lt => starting_event.ts)
       end
 
-      stream.desc(:id).limit(count)
+      stream.desc(:ts).limit(count)
         .map(&method(:build_event_entity))
     end
 
