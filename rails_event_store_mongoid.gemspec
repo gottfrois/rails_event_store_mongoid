@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "rspec"
 
-  spec.add_dependency 'mongoid', '~> 5.1'
+  spec.add_dependency 'mongoid', '>= 5.1'
   spec.add_dependency 'ruby_event_store', '~> 0.13'
   spec.add_dependency 'rails_event_store', '~> 0.14'
   spec.add_dependency 'activesupport', '>= 3.0'
