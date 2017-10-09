@@ -1,3 +1,7 @@
+* 0.15.1
+
+Relax mongoid version deps
+
 * 0.15.0
 
 Mongo ids are generated client side which is not guarante to be monotonic if
